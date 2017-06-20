@@ -98,7 +98,7 @@ public class SysDeptController {
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:dept:delete")
 	public R delete(long deptId){
-		sysDeptService.deleteBatch(new Long[]{deptId});
+		sysDeptService.delete(deptId);
 		
 		return R.ok();
 	}

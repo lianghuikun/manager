@@ -25,6 +25,4 @@ public interface SysDeptService {
 	void update(SysDeptEntity sysDept);
 	
 	void delete(Long deptId);
-	
-	void deleteBatch(Long[] deptIds);
 }

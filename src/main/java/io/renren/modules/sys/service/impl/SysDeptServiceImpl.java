@@ -47,9 +47,4 @@ public class SysDeptServiceImpl implements SysDeptService {
 		sysDeptDao.delete(deptId);
 	}
 	
-	@Override
-	public void deleteBatch(Long[] deptIds){
-		sysDeptDao.deleteBatch(deptIds);
-	}
-	
 }
