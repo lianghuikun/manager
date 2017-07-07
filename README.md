@@ -89,6 +89,7 @@ renren-fastplus
  **项目演示**
 - 演示地址：http://demo.open.renren.io/renren-fastplus
 - 账号密码：admin/admin
+- Swagger地址：http://demo.open.renren.io/renren-fastplus/swagger/index.html
 <br> <br> <br> 
 
 **接口文档效果图：**
