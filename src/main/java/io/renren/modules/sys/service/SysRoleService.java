@@ -26,9 +26,5 @@ public interface SysRoleService {
 	void update(SysRoleEntity role);
 	
 	void deleteBatch(Long[] roleIds);
-	
-	/**
-	 * 查询用户创建的角色ID列表
-	 */
-	List<Long> queryRoleIdList(Long createUserId);
+
 }

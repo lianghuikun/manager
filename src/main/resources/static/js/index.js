@@ -1,18 +1,21 @@
 //生成菜单
 var menuItem = Vue.extend({
 	name: 'menu-item',
-	props:{item:{}},
+	props:{item:{},index:0},
 	template:[
-	          '<li>',
-	          '<a v-if="item.type === 0" href="javascript:;">',
-	          '<i v-if="item.icon != null" :class="item.icon"></i>',
-	          '<span>{{item.name}}</span>',
-	          '<i class="fa fa-angle-left pull-right"></i>',
-	          '</a>',
-	          '<ul v-if="item.type === 0" class="treeview-menu">',
-	          '<menu-item :item="item" v-for="item in item.list"></menu-item>',
-	          '</ul>',
-	          '<a v-if="item.type === 1" :href="\'#\'+item.url"><i v-if="item.icon != null" :class="item.icon"></i><i v-else class="fa fa-circle-o"></i> {{item.name}}</a>',
+	          '<li :class="{active: (item.type===0 && index === 0)}">',
+				  '<a v-if="item.type === 0" href="javascript:;">',
+					  '<i v-if="item.icon != null" :class="item.icon"></i>',
+					  '<span>{{item.name}}</span>',
+					  '<i class="fa fa-angle-left pull-right"></i>',
+				  '</a>',
+				  '<ul v-if="item.type === 0" class="treeview-menu">',
+					  '<menu-item :item="item" :index="index" v-for="(item, index) in item.list"></menu-item>',
+				  '</ul>',
+				  '<a v-if="item.type === 1" :href="\'#\'+item.url">' +
+					  '<i v-if="item.icon != null" :class="item.icon"></i>' +
+					  '<i v-else class="fa fa-circle-o"></i> {{item.name}}' +
+				  '</a>',
 	          '</li>'
 	].join('')
 });
@@ -34,10 +37,10 @@ var vm = new Vue({
 	data:{
 		user:{},
 		menuList:{},
-		main:"modules/sys/main.html",
+		main:"main.html",
 		password:'',
 		newPassword:'',
-        navTitle:"控制台"
+        navTitle:"欢迎页"
 	},
 	methods: {
 		getMenuList: function () {
@@ -85,7 +88,17 @@ var vm = new Vue({
 			//删除本地token
             localStorage.removeItem("token");
             //跳转到登录页面
-            location.href ='login.html';
+            location.href = baseURL + 'login.html';
+        },
+        donate: function () {
+            layer.open({
+                type: 2,
+                title: false,
+                area: ['806px', '467px'],
+                closeBtn: 1,
+                shadeClose: false,
+                content: ['http://cdn.renren.io/donate.jpg', 'no']
+            });
         }
 	},
 	created: function(){
@@ -116,8 +129,9 @@ function routerList(router, menuList){
 			    
 			    //导航菜单展开
 			    $(".treeview-menu li").removeClass("active");
+                $(".sidebar-menu li").removeClass("active");
 			    $("a[href='"+url+"']").parents("li").addClass("active");
-			    
+
 			    vm.navTitle = $("a[href='"+url+"']").text();
 			});
 		}

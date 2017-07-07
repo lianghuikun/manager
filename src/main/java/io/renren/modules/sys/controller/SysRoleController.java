@@ -1,14 +1,15 @@
 package io.renren.modules.sys.controller;
 
 import io.renren.common.annotation.SysLog;
-import io.renren.modules.sys.entity.SysRoleEntity;
-import io.renren.modules.sys.service.SysRoleMenuService;
-import io.renren.modules.sys.service.SysRoleService;
 import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.sys.entity.SysRoleEntity;
+import io.renren.modules.sys.service.SysRoleDeptService;
+import io.renren.modules.sys.service.SysRoleMenuService;
+import io.renren.modules.sys.service.SysRoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,8 @@ public class SysRoleController extends AbstractController {
 	private SysRoleService sysRoleService;
 	@Autowired
 	private SysRoleMenuService sysRoleMenuService;
+	@Autowired
+	private SysRoleDeptService sysRoleDeptService;
 	
 	/**
 	 * 角色列表
@@ -60,7 +63,7 @@ public class SysRoleController extends AbstractController {
 	@RequiresPermissions("sys:role:select")
 	public R select(){
 		Map<String, Object> map = new HashMap<>();
-		
+
 		//如果不是超级管理员，则只查询自己所拥有的角色列表
 		if(getUserId() != Constant.SUPER_ADMIN){
 			map.put("createUserId", getUserId());
@@ -81,6 +84,10 @@ public class SysRoleController extends AbstractController {
 		//查询角色对应的菜单
 		List<Long> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);
 		role.setMenuIdList(menuIdList);
+
+		//查询角色对应的部门
+		List<Long> deptIdList = sysRoleDeptService.queryDeptIdList(roleId);
+		role.setDeptIdList(deptIdList);
 		
 		return R.ok().put("role", role);
 	}
@@ -94,7 +101,6 @@ public class SysRoleController extends AbstractController {
 	public R save(@RequestBody SysRoleEntity role){
 		ValidatorUtils.validateEntity(role);
 		
-		role.setCreateUserId(getUserId());
 		sysRoleService.save(role);
 		
 		return R.ok();
@@ -109,7 +115,6 @@ public class SysRoleController extends AbstractController {
 	public R update(@RequestBody SysRoleEntity role){
 		ValidatorUtils.validateEntity(role);
 		
-		role.setCreateUserId(getUserId());
 		sysRoleService.update(role);
 		
 		return R.ok();

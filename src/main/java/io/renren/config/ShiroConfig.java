@@ -31,11 +31,9 @@ public class ShiroConfig {
     @Bean("sessionManager")
     public SessionManager sessionManager(){
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        //设置session过期时间为1分钟(单位：毫秒)，默认为30分钟
-//        sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
-//        sessionManager.setSessionValidationSchedulerEnabled(true);
-//        sessionManager.setSessionIdUrlRewritingEnabled(false);
-        sessionManager.setSessionIdCookieEnabled(false);
+        sessionManager.setSessionValidationSchedulerEnabled(true);
+        sessionManager.setSessionIdUrlRewritingEnabled(false);
+        //sessionManager.setSessionIdCookieEnabled(false);
         return sessionManager;
     }
 
@@ -61,19 +59,16 @@ public class ShiroConfig {
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/webjars/**", "anon");
         filterMap.put("/druid/**", "anon");
-
-        //swagger配置
-        filterMap.put("/swagger**", "anon");
-        filterMap.put("/v2/api-docs", "anon");
-        filterMap.put("/swagger-resources/configuration/ui", "anon");
-
+        filterMap.put("/api/**", "anon");
         filterMap.put("/sys/login", "anon");
         filterMap.put("/**/*.css", "anon");
         filterMap.put("/**/*.js", "anon");
         filterMap.put("/**/*.html", "anon");
         filterMap.put("/fonts/**", "anon");
         filterMap.put("/plugins/**", "anon");
+        filterMap.put("/swagger/**", "anon");
         filterMap.put("/favicon.ico", "anon");
+        filterMap.put("/captcha.jpg", "anon");
         filterMap.put("/", "anon");
         filterMap.put("/**", "oauth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);

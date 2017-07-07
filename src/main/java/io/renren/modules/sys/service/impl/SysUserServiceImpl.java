@@ -76,9 +76,6 @@ public class SysUserServiceImpl implements SysUserService {
 		user.setSalt(salt);
 		sysUserDao.save(user);
 		
-		//检查角色是否越权
-		checkRole(user);
-		
 		//保存用户与角色关系
 		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
 	}
@@ -92,9 +89,6 @@ public class SysUserServiceImpl implements SysUserService {
 			user.setPassword(new Sha256Hash(user.getPassword(), user.getSalt()).toHex());
 		}
 		sysUserDao.update(user);
-		
-		//检查角色是否越权
-		checkRole(user);
 		
 		//保存用户与角色关系
 		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
@@ -114,22 +108,5 @@ public class SysUserServiceImpl implements SysUserService {
 		map.put("newPassword", newPassword);
 		return sysUserDao.updatePassword(map);
 	}
-	
-	/**
-	 * 检查角色是否越权
-	 */
-	private void checkRole(SysUserEntity user){
-		//如果不是超级管理员，则需要判断用户的角色是否自己创建
-		if(user.getCreateUserId() == Constant.SUPER_ADMIN){
-			return ;
-		}
-		
-		//查询用户创建的角色列表
-		List<Long> roleIdList = sysRoleService.queryRoleIdList(user.getCreateUserId());
-		
-		//判断是否越权
-		if(!roleIdList.containsAll(user.getRoleIdList())){
-			throw new RRException("新增用户所选角色，不是本人创建");
-		}
-	}
+
 }

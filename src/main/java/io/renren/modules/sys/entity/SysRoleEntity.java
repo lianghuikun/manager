@@ -3,6 +3,7 @@ package io.renren.modules.sys.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -32,13 +33,21 @@ public class SysRoleEntity implements Serializable {
 	 * 备注
 	 */
 	private String remark;
-	
+
 	/**
-	 * 创建者ID
+	 * 部门ID
 	 */
-	private Long createUserId;
+	@NotNull(message="部门不能为空")
+	private Long deptId;
+
+	/**
+	 * 部门名称
+	 */
+	private String deptName;
 	
 	private List<Long> menuIdList;
+
+	private List<Long> deptIdList;
 	
 	/**
 	 * 创建时间
@@ -109,12 +118,27 @@ public class SysRoleEntity implements Serializable {
 		this.menuIdList = menuIdList;
 	}
 
-	public Long getCreateUserId() {
-		return createUserId;
+	public Long getDeptId() {
+		return deptId;
 	}
 
-	public void setCreateUserId(Long createUserId) {
-		this.createUserId = createUserId;
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
 	}
-	
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public List<Long> getDeptIdList() {
+		return deptIdList;
+	}
+
+	public void setDeptIdList(List<Long> deptIdList) {
+		this.deptIdList = deptIdList;
+	}
 }

@@ -9,7 +9,10 @@
 
 	<select id="queryList" resultType="io.renren.modules.sys.entity.SysDeptEntity">
 		select d.*,(select p.name from sys_dept p where p.dept_id = d.parent_id) as parentName
-		from sys_dept d where del_flag = 0
+		from sys_dept d where d.del_flag = 0
+		<if test="deptFilter != null">
+			and d.dept_id in (${deptFilter})
+		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by d.${sidx} ${order}
@@ -21,10 +24,6 @@
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
-	</select>
-
- 	<select id="queryTotal" resultType="int">
-		select count(*) from sys_dept where del_flag = 0
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.modules.sys.entity.SysDeptEntity" useGeneratedKeys="true" keyProperty="deptId">
@@ -55,5 +54,9 @@
 	<update id="delete">
 		update sys_dept set del_flag = -1 where dept_id = #{value}
 	</update>
+	
+	<select id="queryDetpIdList" resultType="long">
+		select dept_id from sys_dept where parent_id = #{value}
+	</select>
 
 </mapper>

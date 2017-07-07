@@ -25,7 +25,7 @@ var vm = new Vue({
         }
     },
     methods: {
-        getDept: function(deptId){
+        getDept: function(){
             //加载部门树
             $.get(baseURL + "sys/dept/select", function(r){
                 ztree = $.fn.zTree.init($("#deptTree"), setting, r.deptList);
@@ -109,7 +109,7 @@ var vm = new Vue({
                 btn: ['确定', '取消'],
                 btn1: function (index) {
                     var node = ztree.getSelectedNodes();
-                    //选择上级菜单
+                    //选择上级部门
                     vm.dept.parentId = node[0].deptId;
                     vm.dept.parentName = node[0].name;
 
@@ -123,7 +123,6 @@ var vm = new Vue({
         }
     }
 });
-
 
 var Dept = {
     id: "deptTable",
@@ -157,13 +156,16 @@ function getDeptId () {
 
 
 $(function () {
-    var colunms = Dept.initColumn();
-    var table = new TreeTable(Dept.id, baseURL + "sys/dept/list", colunms);
-    table.setExpandColumn(2);
-    table.setIdField("deptId");
-    table.setCodeField("deptId");
-    table.setParentCodeField("parentId");
-    table.setExpandAll(false);
-    table.init();
-    Dept.table = table;
+    $.get(baseURL + "sys/dept/info", function(r){
+        var colunms = Dept.initColumn();
+        var table = new TreeTable(Dept.id, baseURL + "sys/dept/list", colunms);
+        table.setRootCodeValue(r.deptId);
+        table.setExpandColumn(2);
+        table.setIdField("deptId");
+        table.setCodeField("deptId");
+        table.setParentCodeField("parentId");
+        table.setExpandAll(false);
+        table.init();
+        Dept.table = table;
+    });
 });

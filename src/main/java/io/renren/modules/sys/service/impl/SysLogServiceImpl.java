@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 
-
 @Service("sysLogService")
 public class SysLogServiceImpl implements SysLogService {
 	@Autowired
@@ -34,11 +33,6 @@ public class SysLogServiceImpl implements SysLogService {
 	@Override
 	public void save(SysLogEntity sysLog){
 		sysLogDao.save(sysLog);
-	}
-	
-	@Override
-	public void update(SysLogEntity sysLog){
-		sysLogDao.update(sysLog);
 	}
 	
 	@Override

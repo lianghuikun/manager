@@ -1,5 +1,6 @@
 package io.renren.modules.sys.controller;
 
+import io.renren.common.utils.Constant;
 import io.renren.common.utils.R;
 import io.renren.modules.sys.entity.SysDeptEntity;
 import io.renren.modules.sys.service.SysDeptService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 /**
@@ -24,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/sys/dept")
-public class SysDeptController {
+public class SysDeptController extends AbstractController {
 	@Autowired
 	private SysDeptService sysDeptService;
 	
@@ -34,7 +35,12 @@ public class SysDeptController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:dept:list")
 	public List<SysDeptEntity> list(){
-		List<SysDeptEntity> deptList = sysDeptService.queryList(new HashMap<String, Object>());
+		Map<String, Object> map = new HashMap<>();
+		//如果不是超级管理员，则只能查询本部门及子部门数据
+		if(getUserId() != Constant.SUPER_ADMIN){
+			map.put("deptFilter", sysDeptService.getSubDeptIdList(getDeptId()));
+		}
+		List<SysDeptEntity> deptList = sysDeptService.queryList(map);
 
 		return deptList;
 	}
@@ -45,18 +51,39 @@ public class SysDeptController {
 	@RequestMapping("/select")
 	@RequiresPermissions("sys:dept:select")
 	public R select(){
-		//查询列表数据
-		List<SysDeptEntity> deptList = sysDeptService.queryList(new HashMap<String, Object>());
+		Map<String, Object> map = new HashMap<>();
+		//如果不是超级管理员，则只能查询本部门及子部门数据
+		if(getUserId() != Constant.SUPER_ADMIN){
+			map.put("deptFilter", sysDeptService.getSubDeptIdList(getDeptId()));
+		}
+		List<SysDeptEntity> deptList = sysDeptService.queryList(map);
 
 		//添加一级部门
-		SysDeptEntity root = new SysDeptEntity();
-		root.setDeptId(0L);
-		root.setName("一级部门");
-		root.setParentId(-1L);
-		root.setOpen(true);
-		deptList.add(root);
+		if(getUserId() == Constant.SUPER_ADMIN){
+			SysDeptEntity root = new SysDeptEntity();
+			root.setDeptId(0L);
+			root.setName("一级部门");
+			root.setParentId(-1L);
+			root.setOpen(true);
+			deptList.add(root);
+		}
 
 		return R.ok().put("deptList", deptList);
+	}
+
+	/**
+	 * 上级部门Id(管理员则为0)
+	 */
+	@RequestMapping("/info")
+	@RequiresPermissions("sys:dept:list")
+	public R info(){
+		long deptId = 0;
+		if(getUserId() != Constant.SUPER_ADMIN){
+			SysDeptEntity dept = sysDeptService.queryObject(getDeptId());
+			deptId = dept.getParentId();
+		}
+
+		return R.ok().put("deptId", deptId);
 	}
 	
 	/**
@@ -98,6 +125,12 @@ public class SysDeptController {
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:dept:delete")
 	public R delete(long deptId){
+		//判断是否有子部门
+		List<Long> deptList = sysDeptService.queryDetpIdList(deptId);
+		if(deptList.size() > 0){
+			return R.error("请先删除子部门");
+		}
+
 		sysDeptService.delete(deptId);
 		
 		return R.ok();
