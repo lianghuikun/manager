@@ -72,7 +72,7 @@ public class SysUserController extends AbstractController {
 	@RequestMapping("/password")
 	public R password(String password, String newPassword){
 		Assert.isBlank(newPassword, "新密码不为能空");
-		
+
 		//sha256加密
 		password = new Sha256Hash(password, getUser().getSalt()).toHex();
 		//sha256加密
