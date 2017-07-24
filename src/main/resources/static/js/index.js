@@ -44,9 +44,14 @@ var vm = new Vue({
 	},
 	methods: {
 		getMenuList: function () {
-			$.getJSON(baseURL + "sys/menu/user", function(r){
+			$.getJSON(baseURL + "sys/menu/nav", function(r){
 				vm.menuList = r.menuList;
                 window.permissions = r.permissions;
+
+                //路由
+                var router = new Router();
+                routerList(router, vm.menuList);
+                router.start();
 			});
 		},
 		getUser: function(){
@@ -104,12 +109,6 @@ var vm = new Vue({
 	created: function(){
 		this.getMenuList();
 		this.getUser();
-	},
-	updated: function(){
-		//路由
-		var router = new Router();
-		routerList(router, vm.menuList);
-		router.start();
 	}
 });
 

@@ -34,6 +34,16 @@ public class SysMenuController extends AbstractController {
 	private SysMenuService sysMenuService;
 	@Autowired
 	private ShiroService shiroService;
+
+	/**
+	 * 导航菜单
+	 */
+	@RequestMapping("/nav")
+	public R nav(){
+		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(getUserId());
+		Set<String> permissions = shiroService.getUserPermissions(getUserId());
+		return R.ok().put("menuList", menuList).put("permissions", permissions);
+	}
 	
 	/**
 	 * 所有菜单列表
@@ -126,16 +136,6 @@ public class SysMenuController extends AbstractController {
 		sysMenuService.deleteBatch(new Long[]{menuId});
 		
 		return R.ok();
-	}
-	
-	/**
-	 * 用户菜单列表
-	 */
-	@RequestMapping("/user")
-	public R user(){
-		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(getUserId());
-		Set<String> permissions = shiroService.getUserPermissions(getUserId());
-		return R.ok().put("menuList", menuList).put("permissions", permissions);
 	}
 	
 	/**

@@ -219,7 +219,7 @@ paths:
         - 部门管理
       summary: 部门列表
       produces:
-        - application/json'
+        - application/json
       responses:
         '200':
           description: 返回部门列表
@@ -472,13 +472,13 @@ paths:
         - 菜单管理
       summary: 菜单列表
       produces:
-        - application/json'
+        - application/json
       responses:
         '200':
           description: 返回菜单列表
           schema:
             $ref: '#/definitions/SysMenuEntity'
-  /sys/menu/user:
+  /sys/menu/nav:
     get:
       tags:
         - 菜单管理
