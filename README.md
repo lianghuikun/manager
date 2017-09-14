@@ -82,9 +82,9 @@ renren-fastplus
 - 执行doc/db.sql文件，初始化数据
 - 修改application-dev.yml，更新MySQL账号和密码
 - Eclipse、IDEA运行RenrenApplication.java，则可启动项目
-- 项目访问路径：http://localhost
+- 项目访问路径：http://localhost:8080/renren-fastplus
 - 账号密码：admin/admin
-- Swagger路径：http://localhost/swagger/index.html
+- Swagger路径：http://localhost:8080/renren-fastplus/swagger/index.html
 
  **项目演示**
 - 演示地址：http://demo.open.renren.io/renren-fastplus

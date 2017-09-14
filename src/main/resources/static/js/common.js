@@ -18,9 +18,7 @@ var url = function(name) {
 T.p = url;
 
 //请求前缀
-//var baseURL = "http://demo.open.renren.io/renren-fastplus/";
-//var baseURL = "/renren-fastplus/";
-var baseURL = "/";
+var baseURL = "/renren-fastplus/";
 
 //登录token
 var token = localStorage.getItem("token");
