@@ -13,6 +13,9 @@
 			<if test="roleName != null and roleName.trim() != ''">
 				and r.`role_name` like concat('%',#{roleName},'%')
 			</if>
+
+			<!--  数据过滤  -->
+			${filterSql}
 		</where>
 		<choose>
 			<when test="sidx != null and sidx.trim() != ''">
@@ -28,11 +31,14 @@
 	</select>
 	
 	<select id="queryTotal" resultType="int">
-		select count(*) from sys_role 
+		select count(*) from sys_role r
 		<where>
 			<if test="roleName != null and roleName.trim() != ''">
-				and `role_name` like concat('%',#{roleName},'%') 
+				and r.`role_name` like concat('%',#{roleName},'%')
 			</if>
+
+			<!--  数据过滤  -->
+			${filterSql}
 		</where>
 	</select>
 	

@@ -28,6 +28,14 @@ public class ApiTestController {
     }
 
     /**
+     * 获取用户ID
+     */
+    @GetMapping("userId")
+    public R userInfo(@RequestAttribute("userId") Integer userId){
+        return R.ok().put("userId", userId);
+    }
+
+    /**
      * 忽略Token验证测试
      */
     @AuthIgnore

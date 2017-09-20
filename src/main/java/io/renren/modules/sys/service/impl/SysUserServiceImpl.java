@@ -1,10 +1,8 @@
 package io.renren.modules.sys.service.impl;
 
-import io.renren.common.exception.RRException;
-import io.renren.common.utils.Constant;
+import io.renren.common.annotation.DataFilter;
 import io.renren.modules.sys.dao.SysUserDao;
 import io.renren.modules.sys.entity.SysUserEntity;
-import io.renren.modules.sys.service.SysRoleService;
 import io.renren.modules.sys.service.SysUserRoleService;
 import io.renren.modules.sys.service.SysUserService;
 import org.apache.commons.lang.RandomStringUtils;
@@ -33,8 +31,6 @@ public class SysUserServiceImpl implements SysUserService {
 	private SysUserDao sysUserDao;
 	@Autowired
 	private SysUserRoleService sysUserRoleService;
-	@Autowired
-	private SysRoleService sysRoleService;
 
 	@Override
 	public List<String> queryAllPerms(Long userId) {
@@ -57,11 +53,13 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	@Override
+	@DataFilter(tableAlias = "u", user = false)
 	public List<SysUserEntity> queryList(Map<String, Object> map){
 		return sysUserDao.queryList(map);
 	}
 	
 	@Override
+	@DataFilter(tableAlias = "u", user = false)
 	public int queryTotal(Map<String, Object> map) {
 		return sysUserDao.queryTotal(map);
 	}

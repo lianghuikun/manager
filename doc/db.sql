@@ -80,6 +80,15 @@ CREATE TABLE `sys_role_dept` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色与部门对应关系';
 
+
+-- 数据权限
+CREATE TABLE `sys_data_auth` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `role_id` bigint COMMENT '角色ID',
+  `dept_id` bigint COMMENT '部门ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据权限';
+
 -- 系统配置信息
 CREATE TABLE `sys_config` (
   `id` bigint NOT NULL AUTO_INCREMENT,

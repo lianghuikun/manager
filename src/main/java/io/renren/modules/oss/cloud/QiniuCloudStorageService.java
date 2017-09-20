@@ -59,12 +59,12 @@ public class QiniuCloudStorageService extends CloudStorageService{
     }
 
     @Override
-    public String upload(byte[] data) {
-        return upload(data, getPath(config.getQiniuPrefix()));
+    public String uploadSuffix(byte[] data, String suffix) {
+        return upload(data, getPath(config.getQiniuPrefix(), suffix));
     }
 
     @Override
-    public String upload(InputStream inputStream) {
-        return upload(inputStream, getPath(config.getQiniuPrefix()));
+    public String uploadSuffix(InputStream inputStream, String suffix) {
+        return upload(inputStream, getPath(config.getQiniuPrefix(), suffix));
     }
 }

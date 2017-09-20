@@ -44,12 +44,12 @@ public class AliyunCloudStorageService extends CloudStorageService{
     }
 
     @Override
-    public String upload(byte[] data) {
-        return upload(data, getPath(config.getAliyunPrefix()));
+    public String uploadSuffix(byte[] data, String suffix) {
+        return upload(data, getPath(config.getAliyunPrefix(), suffix));
     }
 
     @Override
-    public String upload(InputStream inputStream) {
-        return upload(inputStream, getPath(config.getAliyunPrefix()));
+    public String uploadSuffix(InputStream inputStream, String suffix) {
+        return upload(inputStream, getPath(config.getAliyunPrefix(), suffix));
     }
 }

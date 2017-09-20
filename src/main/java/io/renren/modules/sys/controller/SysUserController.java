@@ -1,7 +1,6 @@
 package io.renren.modules.sys.controller;
 
 import io.renren.common.annotation.SysLog;
-import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.common.utils.R;
@@ -42,11 +41,6 @@ public class SysUserController extends AbstractController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:user:list")
 	public R list(@RequestParam Map<String, Object> params){
-		//只有超级管理员，才能查看所有管理员列表
-		if(getUserId() != Constant.SUPER_ADMIN){
-			params.put("createUserId", getUserId());
-		}
-		
 		//查询列表数据
 		Query query = new Query(params);
 		List<SysUserEntity> userList = sysUserService.queryList(query);

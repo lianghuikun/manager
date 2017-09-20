@@ -1,9 +1,9 @@
 package io.renren.modules.sys.service.impl;
 
 import com.qiniu.util.StringUtils;
+import io.renren.common.annotation.DataFilter;
 import io.renren.modules.sys.dao.SysDeptDao;
 import io.renren.modules.sys.entity.SysDeptEntity;
-import io.renren.modules.sys.entity.SysMenuEntity;
 import io.renren.modules.sys.service.SysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 	}
 	
 	@Override
+	@DataFilter(tableAlias = "d", user = false)
 	public List<SysDeptEntity> queryList(Map<String, Object> map){
 		return sysDeptDao.queryList(map);
 	}
@@ -68,7 +69,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 	/**
 	 * 递归
 	 */
-	public void getDeptTreeList(List<Long> subIdList, List<Long> deptIdList){
+	private void getDeptTreeList(List<Long> subIdList, List<Long> deptIdList){
 		for(Long deptId : subIdList){
 			List<Long> list = queryDetpIdList(deptId);
 			if(list.size() > 0){

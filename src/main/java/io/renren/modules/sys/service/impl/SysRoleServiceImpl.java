@@ -1,13 +1,11 @@
 package io.renren.modules.sys.service.impl;
 
-import io.renren.common.exception.RRException;
-import io.renren.common.utils.Constant;
+import io.renren.common.annotation.DataFilter;
 import io.renren.modules.sys.dao.SysRoleDao;
 import io.renren.modules.sys.entity.SysRoleEntity;
 import io.renren.modules.sys.service.SysRoleDeptService;
 import io.renren.modules.sys.service.SysRoleMenuService;
 import io.renren.modules.sys.service.SysRoleService;
-import io.renren.modules.sys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +31,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 	private SysRoleMenuService sysRoleMenuService;
 	@Autowired
 	private SysRoleDeptService sysRoleDeptService;
-	@Autowired
-	private SysUserService sysUserService;
 
 	@Override
 	public SysRoleEntity queryObject(Long roleId) {
@@ -42,11 +38,13 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
+	@DataFilter(tableAlias = "r", user = false)
 	public List<SysRoleEntity> queryList(Map<String, Object> map) {
 		return sysRoleDao.queryList(map);
 	}
 
 	@Override
+	@DataFilter(tableAlias = "r", user = false)
 	public int queryTotal(Map<String, Object> map) {
 		return sysRoleDao.queryTotal(map);
 	}

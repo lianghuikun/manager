@@ -7,17 +7,8 @@ package io.renren.dynamicdatasource;
  * @email sunlightcs@gmail.com
  * @date 2017/8/18 23:46
  */
-public enum DataSourceContext {
-    FIRST("first"),
-    SECOND("second");
+public interface DataSourceContext {
+    String FIRST = "first";
+    String SECOND = "second";
 
-    private String name;
-
-    DataSourceContext(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

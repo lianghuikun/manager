@@ -12,6 +12,9 @@
 			<if test="username != null and username.trim() != ''">
 				and u.`username` like concat('%',#{username},'%')
 			</if>
+
+			<!--  数据过滤  -->
+			${filterSql}
 		</where>
 		<choose>
 			<when test="sidx != null and sidx.trim() != ''">
@@ -27,11 +30,14 @@
 	</select>
 	
 	<select id="queryTotal" resultType="int">
-		select count(*) from sys_user
+		select count(*) from sys_user u
 		<where>
 			<if test="username != null and username.trim() != ''">
-				and `username` like concat('%',#{username},'%') 
+				and u.`username` like concat('%',#{username},'%')
 			</if>
+
+			<!--  数据过滤  -->
+			${filterSql}
 		</where>
 	</select>
 	

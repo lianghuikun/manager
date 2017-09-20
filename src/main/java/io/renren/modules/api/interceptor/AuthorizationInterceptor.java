@@ -25,7 +25,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private TokenService tokenService;
 
-    public static final String LOGIN_USER_KEY = "LOGIN_USER_KEY";
+    public static final String USER_KEY = "userId";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -60,7 +60,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         }
 
         //设置userId到request里，后续根据userId，获取用户信息
-        request.setAttribute(LOGIN_USER_KEY, tokenEntity.getUserId());
+        request.setAttribute(USER_KEY, tokenEntity.getUserId());
 
         return true;
     }

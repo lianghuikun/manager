@@ -70,12 +70,12 @@ public class QcloudCloudStorageService extends CloudStorageService{
     }
 
     @Override
-    public String upload(byte[] data) {
-        return upload(data, getPath(config.getQcloudPrefix()));
+    public String uploadSuffix(byte[] data, String suffix) {
+        return upload(data, getPath(config.getQcloudPrefix(), suffix));
     }
 
     @Override
-    public String upload(InputStream inputStream) {
-        return upload(inputStream, getPath(config.getQcloudPrefix()));
+    public String uploadSuffix(InputStream inputStream, String suffix) {
+        return upload(inputStream, getPath(config.getQcloudPrefix(), suffix));
     }
 }
