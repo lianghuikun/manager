@@ -1,4 +1,4 @@
-package io.renren.dynamicdatasource;
+package io.renren.datasources;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

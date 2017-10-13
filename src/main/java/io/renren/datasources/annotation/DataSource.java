@@ -1,4 +1,4 @@
-package io.renren.dynamicdatasource.annotation;
+package io.renren.datasources.annotation;
 
 import java.lang.annotation.*;
 

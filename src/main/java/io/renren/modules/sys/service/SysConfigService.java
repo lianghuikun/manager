@@ -1,5 +1,7 @@
 package io.renren.modules.sys.service;
 
+
+
 import io.renren.modules.sys.entity.SysConfigEntity;
 
 import java.util.List;
@@ -49,9 +51,8 @@ public interface SysConfigService {
 	 * 根据key，获取配置的value值
 	 * 
 	 * @param key           key
-	 * @param defaultValue  缺省值
 	 */
-	public String getValue(String key, String defaultValue);
+	public String getValue(String key);
 	
 	/**
 	 * 根据key，获取value的Object对象

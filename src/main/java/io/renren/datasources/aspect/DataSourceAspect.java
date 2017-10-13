@@ -1,8 +1,8 @@
-package io.renren.dynamicdatasource.aspect;
+package io.renren.datasources.aspect;
 
-import io.renren.dynamicdatasource.DataSourceContext;
-import io.renren.dynamicdatasource.DynamicDataSource;
-import io.renren.dynamicdatasource.annotation.DataSource;
+import io.renren.datasources.DataSourceNames;
+import io.renren.datasources.DynamicDataSource;
+import io.renren.datasources.annotation.DataSource;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
 public class DataSourceAspect implements Ordered {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("@annotation(io.renren.dynamicdatasource.annotation.DataSource)")
+    @Pointcut("@annotation(io.renren.datasources.annotation.DataSource)")
     public void dataSourcePointCut() {
 
     }
@@ -38,8 +38,8 @@ public class DataSourceAspect implements Ordered {
 
         DataSource ds = method.getAnnotation(DataSource.class);
         if(ds == null){
-            DynamicDataSource.setDataSource(DataSourceContext.FIRST);
-            logger.debug("set datasource is " + DataSourceContext.FIRST);
+            DynamicDataSource.setDataSource(DataSourceNames.FIRST);
+            logger.debug("set datasource is " + DataSourceNames.FIRST);
         }else {
             DynamicDataSource.setDataSource(ds.name());
             logger.debug("set datasource is " + ds.name());

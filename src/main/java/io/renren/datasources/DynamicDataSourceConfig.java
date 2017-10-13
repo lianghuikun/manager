@@ -1,4 +1,4 @@
-package io.renren.dynamicdatasource;
+package io.renren.datasources;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -35,8 +35,8 @@ public class DynamicDataSourceConfig {
     @Primary
     public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource) {
         Map<String, DataSource> targetDataSources = new HashMap<>();
-        targetDataSources.put(DataSourceContext.FIRST, firstDataSource);
-        targetDataSources.put(DataSourceContext.SECOND, secondDataSource);
+        targetDataSources.put(DataSourceNames.FIRST, firstDataSource);
+        targetDataSources.put(DataSourceNames.SECOND, secondDataSource);
         return new DynamicDataSource(firstDataSource, targetDataSources);
     }
 }

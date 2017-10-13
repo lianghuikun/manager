@@ -1,6 +1,6 @@
-package io.renren.dynamicdatasource;
+package io.renren.datasources;
 
-import io.renren.dynamicdatasource.annotation.DataSource;
+import io.renren.datasources.annotation.DataSource;
 import io.renren.modules.api.entity.UserEntity;
 import io.renren.modules.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class DataSourceTestService {
         return userService.queryObject(userId);
     }
 
-    @DataSource(name = DataSourceContext.SECOND)
+    @DataSource(name = DataSourceNames.SECOND)
     public UserEntity queryObject2(Long userId){
         return userService.queryObject(userId);
     }

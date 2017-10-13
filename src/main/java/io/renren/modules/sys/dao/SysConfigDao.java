@@ -1,5 +1,6 @@
 package io.renren.modules.sys.dao;
 
+
 import io.renren.modules.sys.entity.SysConfigEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -13,12 +14,12 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface SysConfigDao extends BaseDao<SysConfigEntity> {
-	
+
 	/**
 	 * 根据key，查询value
 	 */
-	String queryByKey(String paramKey);
-	
+	SysConfigEntity queryByKey(String paramKey);
+
 	/**
 	 * 根据key，更新value
 	 */

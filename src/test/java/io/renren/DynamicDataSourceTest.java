@@ -1,7 +1,7 @@
 package io.renren;
 
 
-import io.renren.dynamicdatasource.DataSourceTestService;
+import io.renren.datasources.DataSourceTestService;
 import io.renren.modules.api.entity.UserEntity;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Test;
