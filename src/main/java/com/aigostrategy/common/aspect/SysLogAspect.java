@@ -2,9 +2,7 @@ package com.aigostrategy.common.aspect;
 
 import com.aigostrategy.common.utils.HttpContextUtils;
 import com.aigostrategy.common.utils.IPUtils;
-import com.aigostrategy.modules.sys.entity.SysLogEntity;
 import com.aigostrategy.modules.sys.entity.SysUserEntity;
-import com.aigostrategy.modules.sys.service.SysLogService;
 import com.google.gson.Gson;
 import com.aigostrategy.common.annotation.SysLog;
 import org.apache.shiro.SecurityUtils;

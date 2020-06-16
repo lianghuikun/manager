@@ -1,8 +1,5 @@
 package com.aigostrategy.modules.sys.service.impl;
 
-import com.aigostrategy.modules.sys.service.SysLogService;
-import com.aigostrategy.modules.sys.dao.SysLogDao;
-import com.aigostrategy.modules.sys.entity.SysLogEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
