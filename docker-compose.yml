@@ -1,7 +1,7 @@
 version: '2'
 services:
-  renren-fastplus:
-    image: renren/fastplus
+  aigostrategy-manager:
+    image: aigostrategy/manager
     ports:
       - "8080:8080"
     environment:

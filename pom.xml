@@ -204,7 +204,7 @@
 				<!--</execution>-->
 				<!--</executions>-->
 				<configuration>
-					<imageName>renren/fastplus</imageName>
+					<imageName>aigostrategy/manager</imageName>
 					<dockerDirectory>${project.basedir}</dockerDirectory>
 					<resources>
 						<resource>

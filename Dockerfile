@@ -2,6 +2,6 @@ FROM java:8
 EXPOSE 8080
 
 VOLUME /tmp
-ADD renren-fastplus-1.0.0.jar /app.jar
-RUN bash -c 'touch /app.jar'
+ADD manager-1.1.0.jar /aigostrategy-app.jar
+RUN bash -c 'touch /aigostrategy-app.jar'
 ENTRYPOINT ["java","-jar","/app.jar"]
