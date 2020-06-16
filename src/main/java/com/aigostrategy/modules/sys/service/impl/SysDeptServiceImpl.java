@@ -1,10 +1,10 @@
 package com.aigostrategy.modules.sys.service.impl;
 
-import com.qiniu.util.StringUtils;
 import com.aigostrategy.common.annotation.DataFilter;
 import com.aigostrategy.modules.sys.dao.SysDeptDao;
 import com.aigostrategy.modules.sys.entity.SysDeptEntity;
 import com.aigostrategy.modules.sys.service.SysDeptService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
